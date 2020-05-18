@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
 import { Image } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import logo from '~/assets/logo.png';
 
 import Background from '~/components/Background';
+import { signUpRequest } from '~/store/modules/auth/actions';
 
 import {
   Container,
@@ -15,10 +17,14 @@ import {
 } from './styles';
 
 export default function SignUp({ navigation }) {
+  const dispatch = useDispatch();
+
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    dispatch(signUpRequest());
+  }
 
   return (
     <Background>

@@ -8,6 +8,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 
 import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
 
 Icon.loadFont();
 
@@ -38,6 +39,16 @@ export default function createRouter(isSigned = false) {
           tabBarLabel: 'Agendamentos',
           tabBarIcon: ({ color }) => (
             <Icon name="event" size={20} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarLabel: 'Meu Perfil',
+          tabBarIcon: ({ color }) => (
+            <Icon name="person" size={20} color={color} />
           ),
         }}
       />

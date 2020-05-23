@@ -6,16 +6,33 @@ import Appointment from '~/components/Appointment';
 
 import { Container, Title, List } from './styles';
 
-const data = [1, 2, 3, 4, 5, 6, 7];
-
 export default function Dashboard() {
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
     async function loadAppointmens() {
       const response = await api.get('appointments');
+
+      setAppointments(response.data);
     }
+
+    loadAppointmens();
   }, []);
+
+  async function handleCancel(id) {
+    const response = await api.delete(`appointments/${id}`);
+
+    setAppointments(
+      appointments.map(appointment =>
+        appointment.id === id
+          ? {
+              ...appointment,
+              canceled_at: response.data.canceled_at,
+            }
+          : appointment
+      )
+    );
+  }
 
   return (
     <Background>
@@ -23,9 +40,11 @@ export default function Dashboard() {
         <Title>Agendamentos</Title>
 
         <List
-          data={data}
-          keyExtractor={item => String(item)}
-          renderItem={({ item }) => <Appointment data={item} />}
+          data={appointments}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => (
+            <Appointment onCancel={() => handleCancel(item.id)} data={item} />
+          )}
         />
       </Container>
     </Background>

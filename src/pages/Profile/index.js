@@ -1,7 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Alert } from 'react-native';
 
 import Background from '~/components/Background';
+import { signOut } from '~/store/modules/auth/actions';
 import { updateProfileRequest } from '~/store/modules/user/actions';
 
 import {
@@ -11,6 +13,7 @@ import {
   Form,
   FormInput,
   SubmitButton,
+  LogoutButton,
 } from './styles';
 
 export default function Profile() {
@@ -35,6 +38,7 @@ export default function Profile() {
   }, [profile]);
 
   function handleSubmit() {
+    Alert.alert('clicou!');
     dispatch(
       updateProfileRequest({
         name,
@@ -44,6 +48,10 @@ export default function Profile() {
         confirmPassword,
       })
     );
+  }
+
+  function handleLogout() {
+    dispatch(signOut());
   }
 
   return (
@@ -105,13 +113,14 @@ export default function Profile() {
             secureTextEntry
             placeholder="Confirmação de senha"
             ref={confirmPasswordRef}
-            returnKeyType="send"
-            onSubmitEditing={handleSubmit}
+            // returnKeyType="send"
+            // onSubmitEditing={handleSubmit}
             value={confirmPassword}
             onChangeText={setConfirmPassword}
           />
 
           <SubmitButton onPress={handleSubmit}>Atualizar perfil</SubmitButton>
+          <LogoutButton onPress={handleLogout}>Sair do GoBarber</LogoutButton>
         </Form>
       </Container>
     </Background>

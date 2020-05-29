@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Background from '~/components/Background';
@@ -27,6 +27,12 @@ export default function Profile() {
   const [oldPassword, setOldPassword] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  useEffect(() => {
+    setOldPassword('');
+    setPassword('');
+    setConfirmPassword('');
+  }, [profile]);
 
   function handleSubmit() {
     dispatch(

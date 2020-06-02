@@ -7,6 +7,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 
+import SelectProvider from './pages/New/SelectProvider';
+import SelectDateTime from './pages/New/SelectDateTime';
+import Confirm from './pages/New/Confirm';
+
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 
@@ -14,6 +18,26 @@ Icon.loadFont();
 
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
+
+function NewStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTransparent: true,
+        headerTintColor: '#FFF',
+        headerLeftContainerStyle: {
+          marginLeft: 20,
+        },
+      }}
+    >
+      <Stack.Screen
+        name="SelectProvider"
+        component={SelectProvider}
+        options={}
+      >
+    </Stack.Navigator>
+  );
+}
 
 export default function createRouter(isSigned = false) {
   return !isSigned ? (

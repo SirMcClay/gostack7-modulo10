@@ -1,9 +1,12 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
+
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import { useNavigation } from '@react-navigation/native';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 
@@ -20,6 +23,8 @@ const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 
 function NewStack() {
+  const navigation = useNavigation();
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -33,8 +38,19 @@ function NewStack() {
       <Stack.Screen
         name="SelectProvider"
         component={SelectProvider}
-        options={}
-      >
+        options={{
+          title: 'Selecione o prestador',
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Dashboard');
+              }}
+            >
+              <Icon name="chevron-left" size={20} color="#FFF" />
+            </TouchableOpacity>
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -63,6 +79,17 @@ export default function createRouter(isSigned = false) {
           tabBarLabel: 'Agendamentos',
           tabBarIcon: ({ color }) => (
             <Icon name="event" size={20} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="New"
+        component={NewStack}
+        options={{
+          tabBarVisible: false,
+          tabBarLabel: 'Agendar',
+          tabBarIcon: ({ color }) => (
+            <Icon name="add-circle-outline" size={20} color={color} />
           ),
         }}
       />

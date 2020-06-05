@@ -51,6 +51,38 @@ function NewStack() {
           ),
         }}
       />
+      <Stack.Screen
+        name="SelectDateTime"
+        component={SelectDateTime}
+        options={{
+          title: 'Selecione o horário',
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
+              <Icon name="chevron-left" size={20} color="#FFF" />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Confirm"
+        component={Confirm}
+        options={{
+          title: 'Confirmar agendamento',
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
+              <Icon name="chevron-left" size={20} color="#FFF" />
+            </TouchableOpacity>
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 }

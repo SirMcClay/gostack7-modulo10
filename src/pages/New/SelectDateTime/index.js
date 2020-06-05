@@ -3,8 +3,6 @@ import Background from '~/components/Background';
 
 // import { Container } from './styles.js';
 
-export default function SelectDateTime({ route }) {
-  const { provider } = route.params;
-
+export default function SelectDateTime() {
   return <Background />;
 }

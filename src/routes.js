@@ -59,7 +59,7 @@ function NewStack() {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => {
-                navigation.goBack();
+                navigation.navigate('SelectProvider');
               }}
             >
               <Icon name="chevron-left" size={20} color="#FFF" />
@@ -75,7 +75,7 @@ function NewStack() {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => {
-                navigation.goBack();
+                navigation.navigate('SelectDateTime');
               }}
             >
               <Icon name="chevron-left" size={20} color="#FFF" />

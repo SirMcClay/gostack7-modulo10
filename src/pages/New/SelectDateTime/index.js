@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import api from '~/services/api';
 
@@ -7,11 +8,11 @@ import DateInput from '~/components/DateInput';
 
 import { Container, HourList, Hour, Title } from './styles';
 
-export default function SelectDateTime({ navigation }) {
+export default function SelectDateTime({ navigation, route }) {
   const [date, setDate] = useState(new Date());
   const [hours, setHours] = useState([]);
 
-  const provider = navigation.getParam('provider');
+  const { provider } = route.params;
 
   useEffect(() => {
     async function loadAvailable() {
@@ -27,6 +28,13 @@ export default function SelectDateTime({ navigation }) {
     loadAvailable();
   }, [date, provider.id]);
 
+  function handleSelectHour(time) {
+    navigation.navigate('Confirm', {
+      provider,
+      time,
+    });
+  }
+
   return (
     <Background>
       <Container>
@@ -36,7 +44,10 @@ export default function SelectDateTime({ navigation }) {
           data={hours}
           keyExtractor={item => item.time}
           renderItem={({ item }) => (
-            <Hour enable={item.available}>
+            <Hour
+              onPress={() => handleSelectHour(item.value)}
+              enabled={item.available}
+            >
               <Title>{item.time}</Title>
             </Hour>
           )}
@@ -45,3 +56,16 @@ export default function SelectDateTime({ navigation }) {
     </Background>
   );
 }
+
+/* electDateTime.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      provider: PropTypes.shape({
+        id: PropTypes.string,
+      }),
+    }),
+  }).isRequired,
+}; */

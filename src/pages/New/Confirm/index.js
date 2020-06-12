@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 import { formatRelative, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
+import api from '~/services/api';
+
 import Background from '~/components/Background';
 
 import { Container, Avatar, Name, Time, SubmitButton } from './styles';
@@ -13,6 +15,15 @@ export default function Confirm({ navigation, route }) {
     () => formatRelative(parseISO(time), new Date(), { locale: pt }),
     [time]
   );
+
+  async function handleAddAppointment() {
+    await api.post('appointments', {
+      provider_id: provider.id,
+      date: time,
+    });
+
+    navigation.navigate('Dashboard');
+  }
 
   function providerImg(data) {
     if (!data.avatar) {
@@ -37,7 +48,9 @@ export default function Confirm({ navigation, route }) {
 
         <Time>{dateFormatted}</Time>
 
-        <SubmitButton onPress={() => {}}>Confirmar agendamento</SubmitButton>
+        <SubmitButton onPress={handleAddAppointment}>
+          Confirmar agendamento
+        </SubmitButton>
       </Container>
     </Background>
   );
